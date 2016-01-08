@@ -24,7 +24,8 @@ end
 sizes = image_type == 'header' ? HEADER_SIZES : BACKGROUND_SIZES
 
 sizes.each do |file_name_template, size|
-  file_name_prefix = file_name.split('.')[0]
+  # We want to strip off any path and the file extension.
+  file_name_prefix = file_name.split('/').last.split('.').first
 
   `convert #{file_name} -resize #{size}\^ -extent #{size} #{file_name_template.gsub('<file_name>', file_name_prefix)}`
 end
